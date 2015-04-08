@@ -1,0 +1,31 @@
+<div class="well text-center">
+    <input type="radio" ng-model="difficulty" value="easy" ng-change="reset()" > Easy
+    <input type="radio" ng-model="difficulty" value="medium" ng-change="reset()" > Medium
+    <input type="radio" ng-model="difficulty" value="hard" ng-change="reset()" > Hard
+    <br/>
+    <h2>{{ group }}</h2>
+    <img ng-src="{{ quizColor.src }}" style="width: 200px; height: 200px;" />
+    <img ng-show="showHint" ng-src="{{ selectedColor.src }}" style="width: 200px; height: 200px;" />
+
+    <br />
+    <button type="submit" class="btn btn-default" ng-click="ready=true" ng-show="!ready">Ready</button>
+    <div class="form-group" ng-show="ready">
+        <div class="radio"  ng-repeat="choice in choices">
+            <label>
+                <input type="radio" ng-model="$parent.selectedColor" ng-value="choice" ng-change="$parent.showHint = false"> {{ choice.color }} <br/>
+            </label>
+
+        </div>
+    </div>
+    <button type="submit" class="btn btn-default"  ng-click="checkGuess()" ng-show="!correct">Submit</button>
+    <span ng-class="attempts > 0 && !correct ? 'has-error glyphicon glyphicon-remove ': ''"></span>
+
+    <br/>
+    <br/>
+
+    <button type="submit" class="btn btn-default" ng-click="showStatistics()">Statistics</button>
+
+    <div ng-repeat="stat in statistics">
+        <span>{{ stat.color }} missed {{ stat.missed }} times </span><img ng-src="{{ stat.src }}" style="height: 15px; width: 15px;" />
+    </div>
+ </div>
